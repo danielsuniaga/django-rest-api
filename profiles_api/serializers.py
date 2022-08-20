@@ -10,6 +10,9 @@ class HelloSerializer(serializers.Serializer):
 
 class UserProfileSerializers(serializers.ModelSerializer):
 
+
+
+
     """Serializa objetos de perfil de usuario"""
 
     class Meta():
@@ -57,3 +60,16 @@ class UserProfileSerializers(serializers.ModelSerializer):
             instance.set_password(password)
 
         return super().update(instance, validated_data)
+
+
+class ProfileFeedItemSerializer(serializers.ModelSerializer):
+
+    """Serializador de profile feed item"""
+
+    class Meta:
+
+        model = models.ProfileFeedItem
+
+        fields = ('id', 'user_profile', 'status_text', 'created_on')
+
+        extra_kwargs = {'user_profile':{'read_only': True}}
